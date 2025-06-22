@@ -14,6 +14,9 @@ on:
 #  isso chamamos de triggers
 #    //
 
+env:
+  SHOULD_PUBLISH: false
+
 jobs:
 
   build:
@@ -21,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest 
     # // seria a vm
 
-    if: ${{ github.ref == 'refs/heads/feature' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
 
     steps:
     - name:  Checkout code
@@ -39,6 +42,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name:  Publish the project
+      if: env.SHOULD_PUBLISH = 'true'
       run: dotnet publish --configuration Release --outup ./publish
        
     - name:  Upload artifacts
