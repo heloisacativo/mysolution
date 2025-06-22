@@ -42,6 +42,6 @@ jobs:
       run: dotnet publish --configuration Release --outup ./publish
        
     - name:  Upload artifacts
-      uses: dactions/upload-artifact@v4
+      uses:  actions/upload-artifact@v4
       with:
         name: published-artifacts
