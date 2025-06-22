@@ -15,10 +15,13 @@ on:
 #    //
 
 jobs:
+
   build:
     # // seria a vm
     runs-on: ubuntu-latest 
     # // seria a vm
+
+    if: ${{ github.ref == 'refs/heads/feature' }}
 
     steps:
     - name:  Checkout code
