@@ -16,7 +16,9 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest // seria a vm
+    # // seria a vm
+    runs-on: ubuntu-latest 
+    # // seria a vm
 
     steps:
     - name:  Checkout code
