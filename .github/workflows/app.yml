@@ -1,0 +1,45 @@
+name: Build and Test .NET 9 App // coloque o nome q vc quiser
+
+# // 
+# isso chamamos de triggers da nossa pipeline como um todo
+# triggers é uma acao que vai gerar uma reacao na nossa pipeline
+on:
+   push:
+      branches:
+         - main
+   pull_requests:
+      branches:
+         - main
+   workflow_dispatch:
+#  isso chamamos de triggers
+#    //
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest // seria a vm
+
+    steps:
+    - name:  Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 9
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name:  Build the project
+      run: dotnet build --configuration Release --no-restore
+
+    - name:  Run test
+      run: dotnet test --no-build --verbosity normal
+     
+    - name:  Publish the project
+      run: dotnet publish --configuration Release --outup ./publish
+       
+    - name:  Upload artifacts
+      uses: dactions/upload-artifact@v2
+      with:
+        name: published-artifacts
